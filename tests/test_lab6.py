@@ -1,34 +1,37 @@
 """
-Юніт-тести для Лабораторної роботи № 6.
-
-Студенти повинні доповнити цей файл тестами для своїх рішень.
+Тести для перевірки математичних модулів.
 """
 import unittest
+import sys
+import os
 
-# TODO: Імпортуйте функції для тестування з вашого пакета
-# from src.назва_вашого_пакета.назва_модуля import ваша_функція
 
-class TestLab6(unittest.TestCase):
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
-    def test_example(self):
-        """Приклад тестового випадку."""
-        self.assertEqual(2 + 2, 4)
+from src.basic_operations import add, divide
+from src.advanced_operations import power, root, percentage
 
-    # TODO: Додайте тестові випадки для функцій у вашому пакеті.
-    # def test_your_function(self):
-    #     """Тестовий випадок для вашої_функції."""
-    #     # Приклад перевірки
-    #     self.assertEqual(ваша_функція(вхідні_дані), очікуваний_результат)
+class TestCalculator(unittest.TestCase):
 
-    # def test_another_function_with_edge_cases(self):
-    #     """Тестовий випадок для іншої_функції з граничними випадками."""
-    #     # Тест з нулем
-    #     self.assertEqual(інша_функція(0), очікуваний_для_нуля)
-    #     # Тест з від'ємним числом
-    #     self.assertEqual(інша_функція(-5), очікуваний_для_від'ємного)
-    #     # Тест з великим числом
-    #     self.assertEqual(інша_функція(1000), очікуваний_для_великого)
+    def test_add(self):
+        self.assertEqual(add(10, 5), 15)
+        self.assertEqual(add(-1, 1), 0)
 
+    def test_divide(self):
+        self.assertEqual(divide(10, 2), 5.0)
+        with self.assertRaises(ValueError):
+            divide(10, 0)
+
+    def test_power(self):
+        self.assertEqual(power(2, 3), 8)
+        self.assertEqual(power(5, 0), 1)
+
+    def test_root(self):
+        self.assertEqual(root(16, 2), 4.0)
+        self.assertEqual(root(27, 3), 3.0)
+
+    def test_percentage(self):
+        self.assertEqual(percentage(200, 10), 20.0)
 
 if __name__ == '__main__':
     unittest.main()
